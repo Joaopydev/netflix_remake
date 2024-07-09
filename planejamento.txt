@@ -1,0 +1,104 @@
+- Homepage
+- Fazer Login e Criar Conta (Usuário e Autenticação)
+    - Email
+    - Username
+    - Senha
+    - Filmes já vistos
+    - Editar Perfil
+
+- Filmes/Séries
+    - thumb
+    - titulo
+    - descrição
+    - categoria
+    - quantidade de views
+    - data de criação
+    - Episodios
+        - videos
+        - titulo
+
+- Barra de Pesquisa
+
+- django-admin startproject hashflix . -> esse código inicializa o projeto criando uma pasta principal (Precisa ser executado no terminal).
+- python manage.py runserver - inicializa o site
+- django-admin startapp nome_do_app -> iniciliaza a pasta do aplicativo django.
+- python manage.py makemigrations -> Usar esse código, junto com o código abaixo, sempre que for realizada uma alterção no banco de dados
+- python manage.py migrate -> Ou quando ele for inicializado pela primeira vez.
+- python manage.py createsuperuser -> Cria o Usuário adminastrador ou seja o dono do site
+
+- Como instalar o aplicativo filme dentro do projeto:
+- 1° Ir em setting.py
+- Em seguida: Acrescentar uma linha em INSTALLED_APPS. O mesmo nome da pasta do aplicativo que foi criado no caso "filme"
+
+- 2° Ir no aquivo urls.py da pasta principal
+- Em seguida: Definir um link para o aplicativo na pasta urls.py da pasta principal do site e criar uma pasta urls.py do aplicativo.
+- Ex: path('', include('filme.urls')) - No segundo argumento está dizendo onde estão armazenadas todas as urls do site.
+
+- 3º Fazer as configurações do models
+- Para garantir que as tabelas que foram criadas dentro do aplicativo apareçam dentro do admin
+
+- Iniciando a construção do site:
+
+- 1° Começar pela criação das tabelas do banco de dados. (em seguida fazer uso do makemigrations e migrate)
+- 2° Passar as tabelas criadas pro arquivo admin.py - Para registrar
+- 3° Configurar no settings.py as pastas onde vão ficar nossas imagens
+
+- Copiar esse codigo:
+
+    STATICFILES_DIRS = [
+    BASE_DIR / "static",
+]
+- Onde será definida a pasta que vai que vai armazenar as imagens estáticas do site
+
+- 4º No arquivo urls.py na pasta principal adicioar urls pra imagens na variavel urlspatterns, com o codigo:
+    static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+- Adicionar na variavel urlspatterns urls para arquivos de mídia, ou seja, esse código:
+    static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+- 5° Definir as váriaveis MEDIA_URL e MEDIA_ROOT. (Onde MEDIA_URL=url para cada imagem da pasta media | MEDIA_ROOT=Pasta onde vão ficar as imagens
+- No arquivo settings.py na pasta principal do projeto - Obs: No final do arquivo.
+- em seguida criar a pasta que vai armazenar os arquivos de midia.
+
+- 6° Criar as urls/links/paginas do site do site.
+- Para cada página do site, criar : Uma url (link onde a pagina vai aparecer), Uma view (Código em python que vai dizer o que vai acontecer quando o usuário abrir aquele link)
+    Um template (Página HTML, parte front-end da página).
+
+- URL: Definir no arquivo urls.py que foi criado manualmente na pasta do app e ir adicionando os links do site na variável urlpatterns
+- View: Definir no arquivo views.py na pasta do app onde a mesma precisa retornar o arquivo HTML do link, ou seja. O front-end daquele link.
+- Templates : Definir uma pasta com o nome de "templates" na pasta do app | O django automaticamente vai identificar que é dali que ele tem que pegar os arquivos HTML do site.
+
+- No arquivo settings.py existe uma variável com o nome de TEMPLATES, com os parametros: "APP_DIRS: True" - Esse é utilizado para pasta templates dentro da pasta do app se for "True"
+- "DIRS: ['templates']" - Não necessáriamente precisa estar dentro da pasta do app
+
+Carrega as imagens estáticas do app:
+    {% load static %}
+    {% static 'images/nome_da_imagem' %}
+
+
+
+- Não esquecer: Ao definir o arquivo context, onde vai estar as variáveis customizadas, após a criação de cada uma delas, É preciso:
+- no arquivo settings.py da pasta principal, adicionar na variável TEMPLATES, em "context_process": "nomedoapp.nomedoarquivo.nomedafunção"
+
+
+
+
+Última aula:
+
+Exemplo de como passar uma url de forma dinâmica dentro do arquivo html:
+Antes definir as váriaves "name" para cada caminho de url na pasta do app - definir uma variável app_name e em seguida incluir o parâmetro "namespace" no arquivo url da pasta principal, no path que puxa as url do app de filme.
+- Quando a url possui um parâmetro dinâmico.
+{% url 'filme:detalhesfilme' filme.pk %}
+
+- Criação do banco de dados + relação entre as tabelas Filme e Episódios.
+
+
+
+django-crispy-forms
+Usado para criar formulário
+
+crispy-bootstrap5
+Usado para integrar os formulários caso esteja usando o bootstrap
+
+ambos precisam ser passados para INSTALLED_APPS em settings.py
+
+{% load crispy_forms_tags %} Passar no HTML

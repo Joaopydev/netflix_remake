@@ -1,0 +1,16 @@
+<!-- Descrevendo as classes do Tailwindcss
+ w-full: A barra de navegação vai ter a largura da página inteira
+ flex: Utilitário para controlar como os items vão se comportar dentro da barra de navegação
+ justify-between: Ajustar/Destribuir a distânca dos objetos de onde está implementado de forma dinâmica
+ items-center: Items centralizados verticalmente
+ fixed: Fixar uma informação no topo da tela o tempo inteiro, que no caso é a barra de navegação
+ z-50: As coisas que estão com z abaixo de 50 vão estar atrás da barra de navegação se z estiver acima vai ocorrer o sentido contrário.-->
+{% load static %}
+<nav class="w-full flex justify-between items-center py-3 px-4 fixed z-50">
+    <!--w-6/12: pega metade da largura de elemento, ou seja a barra de navegação-->
+    <div class="w-6/12">
+        <a href="{% url 'filme:homepage' %}">
+            <img src="{% static 'images/hashflix.png' %}">
+        </a>
+    </div>
+</nav>
